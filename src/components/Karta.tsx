@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderColor: '#dddddd',
   },
   titulli: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 8,
   },
