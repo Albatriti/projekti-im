@@ -9,7 +9,7 @@
 | Emri | GitHub | Përgjegjësia kryesore |
 |---|---|---|
 | Albatrit Alushaj | [@Albatriti](https://github.com/Albatriti) | Ana e klientit: Kreu, kërkimi, profili i ofruesit, rezervimi, Terminet e mia |
-| Leart _[mbiemri]_ | _[@username]_ | Ana e ofruesit: profili i biznesit, shërbimet, orari, pranimi i rezervimeve; paneli i adminit |
+| Leart Hyseni | [@Le4rt](https://github.com/Le4rt) | Ana e ofruesit: profili i biznesit, shërbimet, orari, pranimi i rezervimeve; paneli i adminit |
 
 Punë e përbashkët: dizajni i databazës, tema vizuale, bisedat me përdorues, testimi.
 
