@@ -1,23 +1,71 @@
-import { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput } from 'react-native';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+} from 'react-native';
 import Karta from '../components/Karta';
-import { kategorite, ofruesit, type Kategoria } from '../data/ofruesit';
+import { merrKategorite, merrOfruesit, type Kategoria, type Ofruesi } from '../data/api';
 
 export default function Kreu() {
+  const [kategorite, setKategorite] = useState<Kategoria[]>([]);
+  const [ofruesit, setOfruesit] = useState<Ofruesi[]>([]);
+  const [dukeNgarkuar, setDukeNgarkuar] = useState(true);
+  const [dukeRifreskuar, setDukeRifreskuar] = useState(false);
+  const [gabimi, setGabimi] = useState<string | null>(null);
+
   const [kerkimi, setKerkimi] = useState('');
-  const [kategoria, setKategoria] = useState<Kategoria>('Të gjitha');
+  // null = "Të gjitha"
+  const [kategoriaId, setKategoriaId] = useState<number | null>(null);
+
+  const ngarko = useCallback(async () => {
+    try {
+      setGabimi(null);
+      const [k, o] = await Promise.all([merrKategorite(), merrOfruesit()]);
+      setKategorite(k);
+      setOfruesit(o);
+    } catch (e) {
+      setGabimi(e instanceof Error ? e.message : 'Diçka shkoi keq.');
+    } finally {
+      setDukeNgarkuar(false);
+      setDukeRifreskuar(false);
+    }
+  }, []);
+
+  // Ngarkon sa herë që ekrani shfaqet, p.sh. kur kthehesh nga "Shto ofrues".
+  useFocusEffect(
+    useCallback(() => {
+      ngarko();
+    }, [ngarko]),
+  );
 
   const teFiltruar = ofruesit.filter((o) => {
-    const perputhetKategoria = kategoria === 'Të gjitha' || o.kategoria === kategoria;
-    const perputhetEmri = o.emri.toLowerCase().includes(kerkimi.trim().toLowerCase());
+    const perputhetKategoria = kategoriaId === null || o.category_id === kategoriaId;
+    const perputhetEmri = o.business_name.toLowerCase().includes(kerkimi.trim().toLowerCase());
     return perputhetKategoria && perputhetEmri;
   });
+
+  const butonat = [{ id: null, name: 'Të gjitha' }, ...kategorite];
 
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.permbajtja}
       contentInsetAdjustmentBehavior="automatic"
+      refreshControl={
+        <RefreshControl
+          refreshing={dukeRifreskuar}
+          onRefresh={() => {
+            setDukeRifreskuar(true);
+            ngarko();
+          }}
+        />
+      }
     >
       <Text style={styles.pershendetja}>Çfarë shërbimi të duhet sot?</Text>
 
@@ -34,16 +82,16 @@ export default function Kreu() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.kategorite}
       >
-        {kategorite.map((k) => {
-          const aktive = k === kategoria;
+        {butonat.map((k) => {
+          const aktive = k.id === kategoriaId;
           return (
             <Pressable
-              key={k}
-              onPress={() => setKategoria(k)}
+              key={k.id ?? 'te-gjitha'}
+              onPress={() => setKategoriaId(k.id)}
               style={[styles.kategoria, aktive && styles.kategoriaAktive]}
             >
               <Text style={[styles.kategoriaTeksti, aktive && styles.kategoriaTekstiAktiv]}>
-                {k}
+                {k.name}
               </Text>
             </Pressable>
           );
@@ -52,16 +100,22 @@ export default function Kreu() {
 
       <Text style={styles.seksioni}>Ofruesit e rekomanduar</Text>
 
+      {dukeNgarkuar && <ActivityIndicator style={styles.ngarkimi} />}
+
+      {gabimi && (
+        <Text style={styles.gabimi}>Nuk u lidh dot me databazën: {gabimi}</Text>
+      )}
+
       {teFiltruar.map((o) => (
         <Karta
           key={o.id}
-          titulli={o.emri}
-          pershkrimi={`${o.kategoria} · ${o.qyteti} · ★ ${o.vleresimi}`}
-          cmimi={o.cmimiFillestar}
+          titulli={o.business_name}
+          pershkrimi={`${o.categories?.name ?? ''} · ${o.city} · ★ ${o.rating > 0 ? o.rating : 'e re'}`}
+          cmimi={o.starting_price}
         />
       ))}
 
-      {teFiltruar.length === 0 && (
+      {!dukeNgarkuar && !gabimi && teFiltruar.length === 0 && (
         <Text style={styles.bosh}>Nuk u gjet asnjë ofrues.</Text>
       )}
     </ScrollView>
@@ -123,6 +177,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: 4,
     marginBottom: 4,
+  },
+  ngarkimi: {
+    marginTop: 24,
+  },
+  gabimi: {
+    color: '#c62828',
+    marginHorizontal: 16,
+    marginTop: 16,
   },
   bosh: {
     textAlign: 'center',
