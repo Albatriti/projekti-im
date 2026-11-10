@@ -1,3 +1,27 @@
+# FixIt: gjej dhe rezervo shërbime lokale
+
+## Projekti (përmbledhje nga EKIPI.md, BISEDAT.md, HARTA.md)
+
+**Puna e vetme:** klienti gjen një profesionist vendor dhe i rezervon një termin të lirë, direkt nga telefoni, pa e thirrur askënd.
+
+- **Ekipi:** Albatrit Alushaj (ana e klientit) dhe Leart Hyseni (ana e ofruesit + admin). Asistenti: Agon Bajgora. Projekt studentor, testohet me **Expo Go**.
+- **Përdoruesit:** klientët në Kosovë që kërkojnë berber & frizer, sallon thonjsh, elektricist, hidraulik, klima & ngrohje, mekanik, lavazh, pastrim, riparim telefonash. Ofruesit e këtyre shërbimeve.
+- **Problemi (nga bisedat me Flutura, Arianitin, Gentin):** rezervimi sot bëhet me Instagram, telefon ose duke shkuar direkt. Është i ngadaltë, çmimet dhe oraret e lira nuk janë publike dhe pritja është e gjatë. Njerëzit zgjedhin ofruesin sipas rekomandimeve, fotove të punës dhe vlerësimeve.
+- **Rrjedha kryesore (5 ekrane):** Kreu → Ofruesit (lista) → Profili i ofruesit → Rezervo → Terminet e mia.
+- **Brenda:** login/regjistrim, rolet klient/ofrues, kategoritë, kërkimi dhe filtri sipas kategorisë/qytetit, profili me shërbime/çmime/orar, rezervimi pa mbivendosje, pranimi/refuzimi nga ofruesi, anulimi. Ndërfaqja në shqip.
+- **Jashtë (jo tani):** pagesa online, push notifications nga serveri (s'punojnë në Expo Go), GPS/harta, chat, gjuhë të tjera. Vlerësimet, të preferuarit, fotot dhe paneli i adminit vijnë pas rrjedhës kryesore.
+
+## Teknologjia dhe rregullat e projektit
+
+- Expo SDK 58, Expo Router, TypeScript, `StyleSheet` (pa NativeWind).
+- **Supabase** për databazë (dhe më vonë autentikim). Klienti është te `src/lib/supabase.ts`. Skema SQL te `supabase/schema.sql`.
+- Çelësat lexohen nga `.env.local` (`EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`). Ky file **nuk** shkon në git. Modeli është te `.env.example`. **Asnjëherë** mos përdor `secret` / `service_role` key në aplikacion.
+- Çdo gjë duhet të punojë në Expo Go: mos shto librari me kod nativ që Expo Go nuk i ka.
+- Teksti në ndërfaqe është në shqip. Emrat e variablave mund të jenë në shqip (si në kodin ekzistues).
+- Bëj commit pas çdo hapi të vogël.
+
+---
+
 This is an Expo/React Native mobile application. Prioritize mobile-first patterns, performance, and cross-platform compatibility.
 
 ## Expo has changed — do not trust your training data
