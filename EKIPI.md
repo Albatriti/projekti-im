@@ -23,5 +23,5 @@ Agon Bajgora ([@Agonb](https://github.com/Agonb)), Collaborator në këtë repos
 - **Testimi:** me **Expo Go** në telefon (`npx expo start`, pastaj skanohet QR kodi).
 - **Degët:** secili punon në degën e vet (`albatrit/...`, `leart/...`) dhe bashkon në `main` pasi tjetri e ka parë kodin.
 - **Ndarja e file-ve:** ekranet e klientit janë te `src/app/(customer)/`, ato të ofruesit te `src/app/(provider)/`, kështu që rrallë punojmë në të njëjtin file.
-- **Takimet:** _[p.sh. çdo të hënë dhe të enjte, online]_
-- **Komunikimi:** _[p.sh. grup në WhatsApp / Discord]_
+- **Takimet:** Online dhe ne fakultet
+- **Komunikimi:** Discord dhe rrjete sociale

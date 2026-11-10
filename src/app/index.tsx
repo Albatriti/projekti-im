@@ -14,7 +14,11 @@ export default function Kreu() {
   });
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.permbajtja}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.permbajtja}
+      contentInsetAdjustmentBehavior="automatic"
+    >
       <Text style={styles.pershendetja}>Çfarë shërbimi të duhet sot?</Text>
 
       <TextInput
