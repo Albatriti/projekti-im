@@ -14,7 +14,7 @@
 ## Teknologjia dhe rregullat e projektit
 
 - Expo SDK 58, Expo Router, TypeScript, `StyleSheet` (pa NativeWind).
-- **Supabase** për databazë (dhe më vonë autentikim). Klienti është te `src/lib/supabase.ts`. Skema SQL te `supabase/schema.sql`.
+- **Supabase** për databazë (dhe më vonë autentikim). Klienti është te `src/lib/supabase.ts`, thirrjet te `src/data/api.ts`, skema SQL te `supabase/schema.sql`.
 - Çelësat lexohen nga `.env.local` (`EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`). Ky file **nuk** shkon në git. Modeli është te `.env.example`. **Asnjëherë** mos përdor `secret` / `service_role` key në aplikacion.
 - Çdo gjë duhet të punojë në Expo Go: mos shto librari me kod nativ që Expo Go nuk i ka.
 - Teksti në ndërfaqe është në shqip. Emrat e variablave mund të jenë në shqip (si në kodin ekzistues).
