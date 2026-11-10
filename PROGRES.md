@@ -5,9 +5,9 @@
 | Misioni | Statusi | Ku |
 |---|---|---|
 | **M0:** AGENTS.md me idenë e projektit | ✅ | [AGENTS.md](AGENTS.md) |
-| **M1:** aplikacioni lexon nga Supabase dhe e shfaq në telefon | ✅ _[konfirmo në telefon]_ | Kreu lexon `categories` dhe `providers` |
-| **M2:** përdoruesi shton diçka nga telefoni dhe ruhet | ✅ _[konfirmo në telefon]_ | Ekrani "Shto ofrues" (`+ Shto` lart djathtas) |
-| **M3:** ekrani kryesor i HARTA-s me të dhëna reale | ✅ _[konfirmo në telefon]_ | Kreu: kategoritë, kërkimi dhe filtri punojnë mbi të dhënat nga databaza |
+| **M1:** aplikacioni lexon nga Supabase dhe e shfaq në telefon | ✅ | Kreu lexon `categories` dhe `providers` |
+| **M2:** përdoruesi shton diçka nga telefoni dhe ruhet | ✅ | Ekrani "Shto ofrues" (`+ Shto` lart djathtas) |
+| **M3:** ekrani kryesor i HARTA-s me të dhëna reale | ✅ | Kreu: kategoritë, kërkimi dhe filtri punojnë mbi të dhënat nga databaza |
 
 ## Çka punon
 
@@ -31,7 +31,7 @@
 - **Expo SDK 58:** vumë re që Expo Go në telefon ishte në versionin 58, ndërsa projekti në 57, dhe aplikacioni nuk hapej. E nisëm vetë përditësimin. Agjenti e përfundoi.
 - **Kategoritë:** vendosëm t'i bashkojmë "Berber" dhe "Frizer" në një kategori dhe të shtojmë Sallon thonjsh, Lavazh, Klima & ngrohje dhe Riparim telefonash. Sallon thonjsh doli nga biseda me Fluturën.
 - **Kontrolli:** çdo hap e pamë para se të bashkohej në `main` dhe e aprovuam vetë push-in në GitHub.
-- **Testimi në telefon:** _[konfirmo: Kreu shfaq ofruesit nga Supabase, dhe ofruesi i shtuar me "+ Shto" shfaqet në listë]_
+- **Testimi në telefon:** e testuam me Expo Go. Kreu shfaq kategoritë dhe ofruesit nga Supabase, dhe ofruesi i shtuar me "+ Shto" ruhet dhe shfaqet në listë.
 
 ## Commit-et e kësaj jave
 
