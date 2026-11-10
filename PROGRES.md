@@ -26,8 +26,25 @@
 
 ## Çka bëmë ne
 
-- Krijuam projektin në Supabase, ekzekutuam `supabase/schema.sql` në SQL Editor dhe vendosëm çelësat në `.env.local`.
-- Lexuam diff-in e çdo commit-i dhe e testuam në telefon me Expo Go. _[shtoni çfarë keni ndryshuar ose vënë re]_
+- **Supabase:** krijuam llogarinë dhe projektin, ekzekutuam `supabase/schema.sql` në SQL Editor ("Success. No rows returned") dhe kontrolluam te Table Editor që u krijuan `categories` (9) dhe `providers` (10).
+- **Çelësat:** morëm Project URL dhe **Publishable key** (jo Secret key) dhe i vendosëm vetë në `.env.local`. Vendosëm ta mbajmë `.env.example` në repo, që Learti ta dijë çfarë çelësash i duhen.
+- **Expo SDK 58:** vumë re që Expo Go në telefon ishte në versionin 58, ndërsa projekti në 57, dhe aplikacioni nuk hapej. E nisëm vetë përditësimin. Agjenti e përfundoi.
+- **Kategoritë:** vendosëm t'i bashkojmë "Berber" dhe "Frizer" në një kategori dhe të shtojmë Sallon thonjsh, Lavazh, Klima & ngrohje dhe Riparim telefonash. Sallon thonjsh doli nga biseda me Fluturën.
+- **Kontrolli:** çdo hap e pamë para se të bashkohej në `main` dhe e aprovuam vetë push-in në GitHub.
+- **Testimi në telefon:** _[konfirmo: Kreu shfaq ofruesit nga Supabase, dhe ofruesi i shtuar me "+ Shto" shfaqet në listë]_
+
+## Commit-et e kësaj jave
+
+| Commit | Çfarë |
+|---|---|
+| `cb9dcb5` | Përditëson projektin në Expo SDK 58 |
+| `56e388f` | M0: AGENTS.md me përmbledhjen e FixIt |
+| `9487edd` | Shton klientin e Supabase dhe skemën e parë SQL |
+| `9812d51` | M1 + M3: Kreu lexon kategoritë dhe ofruesit nga Supabase |
+| `801ba7f` | M2: ekrani "Shto ofrues" ruan ofrues të ri në Supabase |
+| `6ebb5e5` | Shton PROGRES.md për javën 5 |
+
+Çdo commit është bërë nga llogaria e Albatritit dhe ka shënimin `Co-Authored-By: Claude`, pra shihet qartë se ku ka ndihmuar agjenti.
 
 ## Hapi tjetër
 
