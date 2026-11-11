@@ -11,8 +11,10 @@ import {
 } from 'react-native';
 import Karta from '../components/Karta';
 import { merrKategorite, merrOfruesit, type Kategoria, type Ofruesi } from '../data/api';
+import { useSesioni } from '@/lib/sesioni';
 
 export default function Kreu() {
+  const { perdoruesi } = useSesioni();
   const [kategorite, setKategorite] = useState<Kategoria[]>([]);
   const [ofruesit, setOfruesit] = useState<Ofruesi[]>([]);
   const [dukeNgarkuar, setDukeNgarkuar] = useState(true);
@@ -67,6 +69,7 @@ export default function Kreu() {
         />
       }
     >
+      <Text style={styles.llogaria}>Hyrë si {perdoruesi?.email}</Text>
       <Text style={styles.pershendetja}>Çfarë shërbimi të duhet sot?</Text>
 
       <TextInput
@@ -129,6 +132,12 @@ const styles = StyleSheet.create({
   },
   permbajtja: {
     paddingVertical: 16,
+  },
+  llogaria: {
+    fontSize: 13,
+    color: '#56606d',
+    marginHorizontal: 16,
+    marginBottom: 4,
   },
   pershendetja: {
     fontSize: 24,

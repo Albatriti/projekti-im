@@ -31,8 +31,8 @@ export default function Hyrja() {
 
   return (
     <View style={styles.ekrani}>
-      <Text style={styles.titulli}>Termini</Text>
-      <Text style={styles.nentitulli}>Hyni me llogarinë e berberisë.</Text>
+      <Text style={styles.titulli}>FixIt</Text>
+      <Text style={styles.nentitulli}>Hyni për të gjetur dhe rezervuar shërbime.</Text>
       <TextInput
         style={styles.fusha}
         placeholder="Email-i"

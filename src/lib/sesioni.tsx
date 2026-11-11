@@ -9,7 +9,8 @@ import * as offline from "./hyrja-offline";
 const burimi: typeof Supabase =
   process.env.EXPO_PUBLIC_OFFLINE === "1"
     ? (offline satisfies typeof Supabase) // tsc kontrollon që offline ka të njëjtat funksione
-    : require("./hyrja"); // ngarkohet vetëm kur duhet: offline, klienti i Supabase s'krijohet fare
+    : // eslint-disable-next-line @typescript-eslint/no-require-imports -- qëllimisht: ngarkim vetëm kur duhet
+      require("./hyrja"); // ngarkohet vetëm kur duhet: offline, klienti i Supabase s'krijohet fare
 
 export type { Perdoruesi } from "./hyrja";
 export const { hyr, krijoLlogari, dil } = burimi;
