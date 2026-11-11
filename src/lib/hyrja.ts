@@ -13,23 +13,32 @@ function ngaSesioni(sesioni: Session | null): Perdoruesi | null {
 
 // TODO 1: supabase.auth.signInWithPassword. Kur kthehet error: throw new Error(error.message).
 export async function hyr(email: string, fjalekalimi: string): Promise<void> {
-  throw new Error("TODO 1: hyr() me supabase.auth.signInWithPassword");
+  const { error } = await supabase.auth.signInWithPassword({ email, password: fjalekalimi });
+  if (error) throw new Error(error.message);
 }
 
 // TODO 2: supabase.auth.signUp. Ktheni "hyri" kur data.session ekziston; "konfirmo" kur është null
 // (projekti kërkon konfirmimin e email-it).
 export async function krijoLlogari(email: string, fjalekalimi: string): Promise<"hyri" | "konfirmo"> {
-  throw new Error("TODO 2: krijoLlogari() me supabase.auth.signUp");
+  const { data, error } = await supabase.auth.signUp({ email, password: fjalekalimi });
+  if (error) throw new Error(error.message);
+  // Me "Confirm email" të fikur, Supabase e kthen sesionin menjëherë.
+  return data.session ? "hyri" : "konfirmo";
 }
 
 // TODO 3: supabase.auth.signOut.
 export async function dil(): Promise<void> {
-  throw new Error("TODO 3: dil() me supabase.auth.signOut");
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
 }
 
 // TODO 4: supabase.auth.onAuthStateChange. Për çdo ngjarje thirreni ndryshoi(ngaSesioni(sesioni));
 // ktheni funksionin që e ndal dëgjimin. Deri atëherë askush s'ka hyrë.
 export function degjoSesionin(ndryshoi: (p: Perdoruesi | null) => void): () => void {
-  ndryshoi(null);
-  return () => {};
+  // Ngjarja e parë (INITIAL_SESSION) vjen menjëherë me sesionin e ruajtur në telefon,
+  // pastaj SIGNED_IN, SIGNED_OUT, TOKEN_REFRESHED etj.
+  const { data } = supabase.auth.onAuthStateChange((_ngjarja, sesioni) => {
+    ndryshoi(ngaSesioni(sesioni));
+  });
+  return () => data.subscription.unsubscribe();
 }
