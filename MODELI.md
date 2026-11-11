@@ -21,11 +21,28 @@ AI (Claude Code) u përdor **vetëm** për hapin B, ku karta e lejon.
 - Nuk ka filtër `.eq(...)` në telefon në vend të RLS-it. Telefoni nuk e dërgon `pronari_id`.
 - Roli nuk ruhet në `user_metadata`.
 
-## Kush sheh çka (hapi C, pa AI)
+## Kush sheh çka
 
-_[Këtë pjesë e shkruani vetë, me fjalët tuaja, pasi t'i shkruani policy-të.]_
+Policy-të te `supabase/j6-hyrja-rls.sql` (hapat A dhe C) i shkruam ne, pa AI, duke u nisur nga shablloni i kartës. Kjo tabelë i përmbledh vendimet tona.
 
-| Tabela | Kush lexon | Kush shton | Kush ndryshon | Pse |
-|---|---|---|---|---|
-| `categories` | _[...]_ | _[...]_ | _[...]_ | _[...]_ |
-| `providers` | _[...]_ | _[...]_ | _[...]_ | _[...]_ |
+| Tabela | Pa llogari (`anon`) | Kush lexon | Kush shton | Kush ndryshon | Pse |
+|---|---|---|---|---|---|
+| `categories` | asgjë (*permission denied*) | çdo përdorues i kyçur, të gjitha kategoritë | askush nga aplikacioni | askush nga aplikacioni | Kategoritë nuk janë të dhëna personale. Janë të njëjta për të gjithë, dhe çdo klient ka nevojë t'i shohë të gjitha për të gjetur shërbimin. Prandaj `using (true)`, por vetëm `to authenticated` dhe vetëm `select`. Kategoritë shtohen vetëm nga SQL Editor. |
+| `providers` | asgjë (*permission denied*) | vetëm pronari: rreshtat ku `pronari_id = auth.uid()` | përdoruesi i kyçur, vetëm për vete | vetëm pronari, rreshtat e vet | Çdo ofrues është i llogarisë që e krijoi. `pronari_id` e vendos serveri (`default auth.uid()`), jo telefoni, kështu që askush nuk mund të krijojë ofrues në emër të dikujt tjetër. |
+
+### Si e kontrollon serveri
+
+- **`using (...)`** kontrollon rreshtat **ekzistues**: cilat mund t'i lexosh ose t'i ndryshosh. Rreshtat që s'e plotësojnë kushtin thjesht nuk kthehen.
+- **`with check (...)`** kontrollon rreshtin **e ri** ose **të ndryshuar** para se të ruhet. Nëse s'e plotëson kushtin, ruajtja refuzohet.
+- Policy e shtimit ka vetëm `with check`, sepse para shtimit nuk ka rresht ekzistues për të kontrolluar.
+- Policy e ndryshimit ka të dyja: `using` që të ndryshosh vetëm të tuat, dhe `with check` që të mos ia kalosh rreshtin dikujt tjetër duke ndryshuar `pronari_id`.
+
+### Çka nuk bëmë (qëllimisht)
+
+- **Asnjë filtër `.eq(...)` në telefon.** Ndarja bëhet vetëm nga RLS-i në server, dhe telefoni vetëm pyet.
+- **Asnjë rol në `user_metadata`.** Atë mund ta ndryshojë vetë përdoruesi.
+- **Asnjë policy për fshirje.** Aplikacioni ende nuk fshin ofrues, prandaj fshirja është e ndaluar për të gjithë.
+
+### Hapi tjetër (rolet, hapi E)
+
+Ofruesit tani i sheh vetëm pronari. Për FixIt, më vonë klientët duhet t'i shohin ofruesit e **aprovuar** të të gjithëve. Këtë do ta bëjmë me një tabelë rolesh që ndryshohet vetëm nga SQL Editor dhe me një kolonë `is_approved`, jo me `user_metadata`.
